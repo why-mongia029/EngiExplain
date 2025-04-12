@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, {useState} from 'react';
@@ -88,7 +87,7 @@ const Home = () => {
           >
             {loading ? 'Simplifying...' :
               <>
-                Simplify
+                Simplify Concept
                 <Lightbulb className="ml-2 h-4 w-4"/>
               </>
             }
