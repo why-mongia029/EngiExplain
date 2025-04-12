@@ -8,6 +8,7 @@ import {Textarea} from '@/components/ui/textarea';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {toast} from "@/hooks/use-toast"
 import {useToast as useToastHook} from "@/hooks/use-toast"
+import {Lightbulb} from "lucide-react";
 
 import {simplifyEngineeringConcept} from '@/ai/flows/simplify-engineering-concept';
 import {improveExplanationWithFeedback} from '@/ai/flows/improve-explanation-with-feedback';
@@ -72,7 +73,7 @@ const Home = () => {
       </header>
 
       <main className="w-full max-w-4xl px-4">
-        <section className="mb-6">
+        <section className="mb-6 flex items-center space-x-2">
           <Input
             type="text"
             placeholder="Enter engineering concept"
@@ -81,11 +82,16 @@ const Home = () => {
             onChange={e => setConcept(e.target.value)}
           />
           <Button
-            className="w-full mt-2 bg-green-500 text-white rounded-md shadow-sm hover:bg-green-600 disabled:cursor-not-allowed"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-sm disabled:cursor-not-allowed"
             onClick={handleConceptSimplification}
             disabled={loading || !concept}
           >
-            {loading ? 'Simplifying...' : 'Simplify Concept'}
+            {loading ? 'Simplifying...' :
+              <>
+                Simplify
+                <Lightbulb className="ml-2 h-4 w-4"/>
+              </>
+            }
           </Button>
         </section>
 
