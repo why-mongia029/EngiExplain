@@ -1,0 +1,44 @@
+name: Firebase Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js (if your project uses Node.js)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # Use the version your project requires
+
+    # Step 3: Install Firebase CLI
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    # Step 4: Authenticate with Firebase
+    - name: Authenticate with Firebase
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: firebase login:ci --token $FIREBASE_TOKEN
+
+    # Step 5: Build your project (if necessary)
+    # Uncomment the following lines if you need to build your project
+    # - name: Install dependencies
+    #   run: npm install
+    #
+    # - name: Build project
+    #   run: npm run build
+
+    # Step 6: Deploy to Firebase
+    - name: Deploy to Firebase
+      run: firebase deploy --only hosting
